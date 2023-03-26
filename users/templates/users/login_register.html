@@ -1,0 +1,82 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+        {% if page == 'register' %}
+
+            <div class="body-container">
+
+                <div class="signup-form">
+                    <h2>Register</h2>
+
+                    <form class="form-group" action="{% url 'signup' %}" method="post">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+
+                        <div class="form-control">
+                            <label for="">{{field.label}}</label>
+                            {{field}}
+
+                            {% if field.help_text %}
+                              <small>{{field.help_text}}</small>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                             <p style="color: red">{{error}}</p>
+                            {% endfor %}
+
+                        </div>
+
+                        {% endfor %}
+
+                        <input class="message-btn" type="submit" value="Sign Up">
+
+                    </form>
+
+                    <footer>
+                        <p>Already have an Account ? <a href="{% url 'login' %}">Sign In</a></p>
+                    </footer>
+                </div>
+
+            </div>
+
+
+        {% else %}
+
+        <div class="body-container">
+
+            <div class="signup-form">
+
+                <h2>Login</h2>
+
+                <form class="form-group" action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-control">
+                        <label for="">Username</label>
+                        <input class="input" type="text" name="username" placeholder="Enter your username" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="">Password</label>
+                        <input type="password" name="password" id="" class="input" placeholder="Enter your password"
+                               required>
+                    </div>
+
+                    <input class="message-btn" type="submit" value="Login">
+                </form>
+                    <footer>
+                        <a href="#">Forgot Password ?</a>
+
+                        <p>Don't have an Account ? <a href="{% url 'signup' %}">Signup</a></p>
+                    </footer>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+{% endblock content %}

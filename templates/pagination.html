@@ -1,0 +1,29 @@
+{% if queryset.has_other_pages %}
+
+        <footer id="footer">
+
+            {% if queryset.has_previous %}
+                <a class="icon-style icon-highlight" href="?page={{ queryset.previous_page_number }}"
+                   data-page="{{queryset.previous_page_number}}">&#10094; Prev</a>
+            {% endif %}
+
+            {% for page in custom_page_range %}
+
+                {% if page == queryset.number%}
+                <a class="icon-style" href="?page={{page}}" data-page="{{page}}">{{page}}</a>
+                {% else %}
+                <a class="icon-style" href="?page={{page}}" data-page="{{page}}">{{page}}</a>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if queryset.has_next %}
+            <a class="icon-style icon-highlight" href="?page={{ queryset.next_page_number }}"
+               data-page="{{queryset.next_page_number}}">
+                Next &#10095;</a>
+            {% endif %}
+
+
+        </footer>
+
+{% endif %}

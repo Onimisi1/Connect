@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+      <header class="search-header">
+
+        <form id="searchForm" class="search-form" action="{% url 'profiles' %}" method="get">
+
+            <input type="text" name="query" id="search-area" placeholder="Search for Developers..."
+                   value="{{search_query}}">
+
+            <input id="search-btn" type="submit" value="Search">
+
+        </form>
+
+    </header>
+
+    <div class="body-container">
+
+        <div class="box-container">
+
+
+            {% for profile in profiles %}
+            <div class="developer-card">
+
+                <div class="card-head">
+                    <a
+                            href="{% url 'user-profile' profile.id %}"><img class="round-image"
+                                                               src="{{ profile.profile_image.url }}" alt=""></a>
+                    <div class="nav-right">
+                        <h2>{{ profile.name }}</h2>
+
+                        <h3 class="gray-text">{{ profile.short_intro | slice:"50" }}</h3>
+                    </div>
+                </div>
+
+                <p class="gray-text">{{ profile.bio | slice:"150"}}</p>
+
+                <div class="tags">
+                    <ul>
+
+                        {% for skill in profile.skill_set.all|slice:"6" %}
+                        <li>{{ skill }}</li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+        {% include 'pagination.html' with queryset=profiles custom_page_range=custom_page_range %}
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+    <div class="body-container">
+
+        <div class="message-box">
+
+            <header>
+                <a href="{% url 'inbox' %}"><span class="back-btn"> &#8592;</span></a>
+
+                <h2 class="gray-text">{{ message_obj.message_title }}</h2>
+            </header>
+
+            <div class="message-text">
+                <div>
+                    <a href="#" id="project-author">{{message_obj.name}}</a>
+                    <p class="gray-text">{{message_obj.created}}</p>
+                </div>
+
+                <p class="gray-text">{{ message_obj.body | linebreaksbr }}</p>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+{% endblock content %}

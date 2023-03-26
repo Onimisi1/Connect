@@ -1,0 +1,94 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="body-container">
+
+        <div class="single-project-top">
+            <img src="{{ project.featured_image.url }}" alt="">
+            <div class="stacks">
+                <h2 class="gray-text">TOOLS & STACKS</h2>
+
+                {% for tag in project.tags.all %}
+                <span>{{tag}}</span>
+                {% endfor %}
+
+
+                {% if project.source_link %}
+                <p><a id="Live-link" href="#">Live Link</a></p>
+                {% endif %}
+
+                 {% if project.demo_link %}
+                <p><a id="Live-link" href="#">Live Demo</a></p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <h4 class="gray-text">{{ project.user.name }}</h4>
+
+        <h2>{{project.title}}</h2>
+
+        <div class="project-about">
+            <h3 class="gray-text">ABOUT PROJECT</h3>
+            <p class="gray-text">{{project.description}}</p>
+        </div>
+
+        <hr id="align-left">
+
+        <h3 class="gray-text">FEEDBACK</h3>
+        <div class="vote-box">
+            <span class="rating">{{project.vote_ratio}}% Positive Feedback ({{ project.vote_total }}
+                Vote{{project.vote_total | pluralize:"s" }})</span>
+        </div>
+
+        <div class="comment-card">
+
+            {% if request.user.profile.id in project.get_reviewers %}
+                <p>You have already submitted your Review</p>
+
+            {% elif request.user.profile == project.user %}
+                <p>You cannot review your own Project</p>
+
+            {% elif request.user.is_authenticated %}
+
+                <form class="form-group" action="{% url 'project' project.id %}" method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-control">
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    <input class="btn message-btn" type="submit" value="Submit">
+
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}?next={{request.path}}">Click here to Login and leave a Review</a>
+
+            {% endif %}
+        </div>
+
+        {% for review in project.review_set.all %}
+
+        {% if review.body %}
+        <div class="comments">
+            <a href="{% url 'user-profile' review.user.id %}"><img class="round-image comment-image" src="{{ review.user.profile_image.url }}" alt=""></a>
+            <div class="nav-right">
+                <h3 id="project-author" class="margin"><a href="{% url 'user-profile' review.user.id %}">{{ review.user.name }}</a></h3>
+
+                <p class="gray-text margin">{{ review.body|linebreaksbr }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+
+
+
+    </div>
+
+
+{% endblock content %}

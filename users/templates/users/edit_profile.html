@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+    <div class="body-container">
+        <div class="signup-form">
+
+            <a href="{% url 'user-profile' request.user.profile.id %}"><div class="back-btn">&#8592;</div></a>
+            <h1>Edit Account</h1>
+            <br>
+            <form class="form-group" method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}" >
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                 <div class="form-control">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                 </div>
+
+                {% endfor %}
+
+                <input class="message-btn" type="submit" value="Submit">
+            </form>
+
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,139 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+        <div class="body-container">
+        <div class="profile-header">
+            <div class="card-head">
+
+                <img class="profile-image" src="{{ profile.profile_image.url }}" alt="">
+                <div class="nav-right">
+                    <h2 class="margin">{{ profile.name }}</h2>
+
+                    {% if profile.short_intro %}
+                    <h3 class="gray-text margin">{{ profile.short_intro }}</h3>
+                    {% endif %}
+                </div>
+
+                {% if request.user.profile == profile %}
+                <span class="edit"><a href="{% url 'edit-profile' %}">Edit</a></span>
+
+                {% else %}
+                <span class="edit message-btn"><a href="{% url 'send-message' profile.id %}">Send Message</a></span>
+
+                {% endif %}
+
+            </div>
+            <div class="footer">
+                {% if profile.location %}
+                <p class="margin gray-text">Based in {{ profile.location }}</p>
+                {% endif %}
+
+                {% if profile.github_link %}
+                <a href="{{profile.github_link}}">Github</a>
+                {% endif %}
+
+                {% if profile.twitter_link %}
+                <a href="{{profile.twitter_link}}">Twitter</a>
+                {% endif %}
+
+                {% if profile.linkedin_link %}
+                <a href="{{profile.linkedin_link}}">LinkedIn</a>
+                {% endif %}
+
+                {% if profile.website_link %}
+                <a href="{{profile.website_link}}">Website</a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="profile-body">
+
+            <div class="about">
+                {% if profile.bio %}
+                <h2>ABOUT</h2>
+                <p class="gray-text">{{ profile.bio }}</p>
+                {% endif %}
+            </div>
+
+            <div class="skills-head">
+                <h2>SKILLS</h2>
+
+                {% if request.user.profile == profile %}
+                <p><a href="{% url 'add-skill'  %}">+ Add to skill</a></p>
+                {% endif %}
+
+            </div>
+
+            <div class="skills-wrapper">
+
+                {% for skill in profile.skill_set.all %}
+                <div class="skills-item">
+
+                    <div>
+                        <h3 class="gray-text">{{ skill.name }}</h3>
+                        <p class="gray-text">{{ skill.description | linebreaksbr }}</p>
+                    </div>
+
+                    {% if request.user.profile == profile %}
+                    <ul>
+                        <li class="edit"><a href="{% url 'update-skill' skill.id %}">Edit</a></li>
+                        <li
+                                class="edit" ><a href="{% url 'delete-skill' skill.id %}">
+                            Delete</a></li>
+                    </ul>
+                    {% endif %}
+
+                </div>
+
+                <hr>
+                {% endfor %}
+
+            </div>
+
+            <!-- <div class="other-skills-body">
+                <h2>OTHER SKILLS</h2>
+                <a class="other-skills" href="#">React</a>
+                <a class="other-skills" href="#">React</a>
+                <a class="other-skills" href="#">React</a>
+            </div> -->
+
+
+            <div class="projects-head">
+                <h2>PROJECTS</h2>
+
+                {% if request.user.profile == profile %}
+                <p><a href="{% url 'create-project' %}">+ Add Project</a></p>
+                {% endif %}
+            </div>
+            <div class="projects-wrapper">
+
+                {% for project in profile.project_set.all %}
+
+                <div class="project-item">
+                   <div>
+                        <a href="{% url 'project' project.id %}"><img src="{{ project.featured_image.url }}" alt=""></a>
+                        <h2>{{ project.title }}</h2>
+                        <p>{{ project.description|slice:"250" }}</p>
+                   </div>
+
+                    {% if request.user.profile == profile %}
+                    <ul>
+                        <li class="edit"><a href="{% url 'update-project' project.id %}">Edit</a></li>
+                        <li class="edit"><a href="{% url 'delete-project' project.id %}">Delete</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+                <hr>
+
+                {% endfor %}
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+{% endblock content %}

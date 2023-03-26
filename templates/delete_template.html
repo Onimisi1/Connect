@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% block content %}
+
+     <div class="body-container">
+       <div class="signup-form">
+        <form class="form-group" action="" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{object}}" ?</p>
+
+            <button class="message-btn"><a href="{% url 'user-profile' request.user.profile.id %}">Go back</a></button>
+
+            <input class="message-btn" type="submit" value="Confirm">
+        </form>
+       </div>
+     </div>
+{% endblock %}

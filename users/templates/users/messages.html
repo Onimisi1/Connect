@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+    <div class="body-container">
+
+        <div class="message-body">
+            <h2>NEW MESSAGES (<span >{{ user_unread_messages_count }}</span>)</h2>
+
+            <div class="chats-body">
+
+                {% for message in user_messages %}
+
+                    {% if message.is_seen == False %}
+                    <div class="chat-item unread">
+                        <div>
+                            <p class="message-author gray-text"><a
+                                    href="#">{{ message.name }}</a></p>
+                            <p class="left-margin"><a href="{% url 'view-message' message.id %}">{{ message.message_title }}</a></p>
+                        </div>
+
+                        <p id="message-date">{{ message.created }}</p>
+                    </div>
+
+                    <hr>
+
+                    {% else %}
+                    <div class="chat-item read">
+                        <div>
+                            <p class="message-author gray-text"><a href="">{{ message.name }}</a></p>
+                            <p class="left-margin"><a href="{% url 'view-message' message.id %}">{{ message.message_title }}</a></p>
+                        </div>
+                        <p id="message-date">{{ message.created }}</p>
+                    </div>
+                    <hr>
+
+                    {% endif %}
+
+                    {% empty %}
+                    <h2>NO MESSAGES</h2>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}

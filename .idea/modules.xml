@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Blog/.idea/Blog.iml" filepath="$PROJECT_DIR$/../Blog/.idea/Blog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Practical/LearnHtmlCSS/LearnCSS/.idea/LearnCSS.iml" filepath="$PROJECT_DIR$/../Practical/LearnHtmlCSS/LearnCSS/.idea/LearnCSS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Onimproject.iml" filepath="$PROJECT_DIR$/.idea/Onimproject.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,44 @@
+<!Doctype html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect with Software Developers</title>
+    <link rel="stylesheet" href="{% static 'styles/style_devsearch.css'  %}">
+</head>
+
+<body>
+{% include 'navbar.html' %}
+
+<!--    {% if messages %}-->
+<!--    <ul class="messages">-->
+<!--        {% for message in messages %}-->
+<!--        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+<!--    {% endif %}-->
+
+    {% if messages %}
+
+    {% for message in messages %}
+    <div class="body-container align-message">
+            <div class="alert alert--{{message.tags}}">
+                <p class="alert__message">{{message}}</p>
+                <button class="alert__close">x</button>
+            </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+</body>
+<script src="{% static 'js/app.js' %}"></script>
+</html>

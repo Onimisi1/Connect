@@ -1,0 +1,31 @@
+{% load static %}
+
+<nav id="nav-bar">
+        <div class="body-container">
+            <div class="container">
+                <div class="logo">MyLogo</div>
+                <ul>
+                    <li><a href="{% url 'profiles' %}">Developers</a></li>
+                    <li><a href="{% url 'projects' %}">Projects</a></li>
+
+                    {% if request.user.is_authenticated %}
+
+                    <li class="inbox">
+                      <a href="{% url 'inbox' %}">Inbox
+                          {% if request.user.profile.get_unread_messages_count %}
+                        <div>{{ request.user.profile.get_unread_messages_count }}</div>
+                          {% endif %}
+                      </a>
+                    </li>
+                    <li><a href="{% url 'user-profile' request.user.profile.id %}">Account</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+
+                    {% else %}
+
+                    <li><a href="{% url 'login' %}">Login/Signup</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+</nav>
